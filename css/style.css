@@ -1,0 +1,396 @@
+:root {
+    --primary-color: #2c3e50;
+    --accent-color: #e74c3c;
+    --secondary-color: #3498db;
+    --bg-gradient: linear-gradient(135deg, #f6f8fa 0%, #e9ecef 100%);
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    color: var(--primary-color);
+    line-height: 1.6;
+}
+
+/* Setup Screen */
+#setup-screen {
+    text-align: center;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#setup-screen h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
+.form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Improved Radio Buttons */
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    border: 2px solid #e1e4e8;
+}
+
+.radio-group label:hover {
+    border-color: var(--accent-color);
+}
+
+.radio-group input[type="radio"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #e1e4e8;
+    border-radius: 50%;
+    transition: var(--transition);
+    position: relative;
+    cursor: pointer;
+}
+
+.radio-group input[type="radio"]:checked {
+    border-color: var(--accent-color);
+}
+
+.radio-group input[type="radio"]:checked::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Game Screen */
+#game-screen {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.game-header {
+    background: white;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.player-info, .score-info, .timer {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.score-info {
+    font-weight: 600;
+}
+
+.target-score {
+    font-size: 0.8em;
+    color: #666;
+}
+
+/* Game Layout */
+.game-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1.5rem;
+}
+
+.orders-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.orders-container h2 {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.order-item {
+    padding: 0.75rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.order-scoops {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.scoop-img, .order-status {
+    width: 30px;
+    height: 30px;
+}
+
+.order-status {
+    margin-left: auto;
+}
+
+.game-area {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+}
+
+/* Ice Cream Workspace */
+.ice-cream-workspace {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.ice-cream-cone-container {
+    position: relative;
+    width: 120px;
+    height: 250px;
+    margin: 40px auto 0;
+}
+
+.cone-img {
+    position: absolute;
+    bottom: 0;
+    width: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.scoop-on-cone {
+    position: absolute;
+    width: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+/* Color Buttons */
+.basic-colors {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.color-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.color-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.color-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Mix Board */
+.mix-board {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    margin: 1rem auto;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+#mix-board-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Action Buttons - Side by Side */
+.mix-board-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex: 1;
+    max-width: 180px;
+    text-align: center;
+}
+
+#add-scoop-btn {
+    background: var(--secondary-color);
+    color: white;
+}
+
+#complete-order-btn {
+    background: var(--accent-color);
+    color: white;
+}
+
+.button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Melt Meter */
+.melt-meter {
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.melt-meter-outer {
+    width: 100%;
+    height: 20px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.melt-meter-inner {
+    height: 100%;
+    background: #4CAF50;
+    transition: width 1s linear;
+}
+
+#melt-timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* Toast Notifications */
+.toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    z-index: 1000;
+    max-width: 400px;
+    width: 90%;
+}
+
+.toast h2 {
+    margin-bottom: 1rem;
+}
+
+.toast p {
+    margin-bottom: 1.5rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .game-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .radio-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .button {
+        max-width: 100%;
+        width: 100%;
+    }
+}

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ice Cream Master</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Setup Screen -->
+    <div id="setup-screen" class="screen">
+      <h1>Ice Cream Master</h1>
+      <div class="form-container">
+        <div class="form-group">
+          <label for="nickname">Player Name</label>
+          <input type="text" id="nickname" required />
+        </div>
+
+        <div class="form-group">
+          <label>Difficulty Level</label>
+          <div id="difficulty-options">
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="difficulty" value="1" checked />
+                <span>Easy</span>
+              </label>
+              <label>
+                <input type="radio" name="difficulty" value="2" />
+                <span>Normal</span>
+              </label>
+              <label>
+                <input type="radio" name="difficulty" value="3" />
+                <span>Hard</span>
+              </label>
+            </div>
+          </div>
+          <span id="difficulty-label" class="difficulty-label">Easy</span>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" id="remember" />
+            <span>Remember my name</span>
+          </label>
+        </div>
+
+        <button id="start-btn" class="button" disabled>Start Game</button>
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen hidden">
+      <div class="game-header">
+        <div class="player-info">
+          <span id="player-name-display"></span>
+          <span id="difficulty-display"></span>
+        </div>
+        <div class="score-info">
+          Score: <span id="score">0</span>
+          <span class="target-score"
+            >/ <span id="target-score">100</span> to win</span
+          >
+        </div>
+        <div class="timer">Time: <span id="game-timer">2:00</span></div>
+      </div>
+
+      <div class="game-container">
+        <div class="orders-container">
+          <h2>Bestellingen</h2>
+          <div id="orders-list"></div>
+        </div>
+
+        <div class="game-area">
+          <div class="current-order-container">
+            <h3>Huidige Bestelling</h3>
+            <div id="current-order-scoops" class="order-scoops"></div>
+            <div class="melt-meter">
+              <div class="melt-meter-outer">
+                <div id="melt-meter-inner"></div>
+                <span id="melt-timer">30s</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ice-cream-workspace">
+            <div class="ice-cream-cone-container">
+              <div id="ice-cream-cone">
+                <img
+                  src="images/ice-cone.png"
+                  alt="Ice Cream Cone"
+                  class="cone-img"
+                />
+              </div>
+            </div>
+
+            <div class="controls">
+              <div class="basic-colors">
+                <div class="color-btn" data-color="red">
+                  <img src="images/red.png" alt="Red" />
+                </div>
+                <div class="color-btn" data-color="green">
+                  <img src="images/green.png" alt="Green" />
+                </div>
+                <div class="color-btn" data-color="blue">
+                  <img src="images/blue.png" alt="Blue" />
+                </div>
+              </div>
+
+              <div class="mix-board-container">
+                <div class="mix-board">
+                  <img
+                    src="images/gray.png"
+                    alt="Mix Board"
+                    id="mix-board-img"
+                  />
+                </div>
+                <div class="action-buttons">
+                  <button id="add-scoop-btn" class="button">Add Scoop</button>
+                  <button id="complete-order-btn" class="button">
+                    Complete Order
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="order-toast" class="toast hidden">
+      <h2 id="order-toast-title"></h2>
+      <p id="order-toast-message"></p>
+    </div>
+    <div id="toast" class="toast hidden">
+      <h2 id="toast-title"></h2>
+      <p id="toast-message"></p>
+      <button id="play-again-btn" class="button">Play Again</button>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="bg-music" loop>
+      <source src="sounds/bg-music.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="success-sound">
+      <source src="sounds/success.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="fail-sound">
+      <source src="sounds/fail.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="win-sound">
+      <source src="sounds/win.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="lose-sound">
+      <source src="sounds/lose.mp3" type="audio/mpeg" />
+    </audio>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
