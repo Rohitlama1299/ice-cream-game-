@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const difficultySettings = {
             '1': { text: 'Easy', totalTime: 40, maxOrders: 8, gameTime: 80, target: 80 },
             '2': { text: 'Normal', totalTime: 30, maxOrders: 10, gameTime: 60, target: 100 },
-            '3': { text: 'Hard', totalTime: 20, maxOrders: 12, gameTime: 50, target: 120 }
+            '3': { text: 'Hard', totalTime: 10, maxOrders: 12, gameTime: 50, target: 120 }
         };
         
         const settings = difficultySettings[difficulty];
@@ -220,21 +220,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function startMeltTimer() {
-        clearInterval(gameState.meltInterval);
-        
-        gameState.timeLeft = gameState.totalTime;
+    clearInterval(gameState.meltInterval);
+    
+    gameState.timeLeft = gameState.totalTime;
+    updateMeltDisplay();
+    
+    gameState.meltInterval = setInterval(() => {
+        gameState.timeLeft--;
         updateMeltDisplay();
         
-        gameState.meltInterval = setInterval(() => {
-            gameState.timeLeft--;
-            updateMeltDisplay();
-            
-            if (gameState.timeLeft <= 0) {
-                clearInterval(gameState.meltInterval);
-                orderFailed();
-            }
-        }, 1000);
-    }
+        if (gameState.timeLeft <= 0) {
+            clearInterval(gameState.meltInterval);
+            completeOrder(); // Changed from orderFailed() to completeOrder()
+        }
+    }, 1000);
+}
     
     function updateMeltDisplay() {
         const percentage = (gameState.timeLeft / gameState.totalTime) * 100;
@@ -292,34 +292,48 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    function completeOrder() {
-        if (!gameState.gameActive || !gameState.scoopsOnCone.length) return;
-        
-        const isMatch = checkOrderMatch();
-        gameState.currentOrder.completed = true;
-        gameState.currentOrder.success = isMatch;
-        gameState.completedOrders++;
-        
-        // Update score
+   function completeOrder() {
+    if (!gameState.gameActive) return;
+    
+    // Mark the order as completed (whether by player or by timeout)
+    gameState.currentOrder.completed = true;
+    
+    // Check if the order matches only if there are scoops on the cone
+    const hasScoops = gameState.scoopsOnCone.length > 0;
+    const isMatch = hasScoops ? checkOrderMatch() : false;
+    gameState.currentOrder.success = isMatch;
+    gameState.completedOrders++;
+    
+    // Update score
+    if (hasScoops) {
         gameState.score += isMatch ? 
             gameState.scoopsOnCone.length * 10 : 
             -5;
         gameState.score = Math.max(0, gameState.score);
-        
-        // Play sound and show feedback
+    } else {
+        // Penalty for not adding any scoops before time ran out
+        gameState.score = Math.max(0, gameState.score - 5);
+    }
+    
+    // Play sound and show feedback
+    if (hasScoops) {
         (isMatch ? successSound : failSound).play();
         showOrderToast(
             isMatch ? 'Order Complete!' : 'Order Failed',
             isMatch ? 'Great job!' : 'Try the next one!'
         );
-        
-        // Update UI
-        scoreDisplay.textContent = gameState.score;
-        updateOrdersList();
-        
-        // Generate new order after delay
-        setTimeout(generateNewOrder, 1500);
+    } else {
+        failSound.play();
+        showOrderToast('Order Failed', 'Time ran out!');
     }
+    
+    // Update UI
+    scoreDisplay.textContent = gameState.score;
+    updateOrdersList();
+    
+    // Generate new order after delay
+    setTimeout(generateNewOrder, 1500);
+}
     
     function checkOrderMatch() {
         return gameState.scoopsOnCone.length === gameState.currentOrder.scoopColors.length &&
