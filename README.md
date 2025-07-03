@@ -1,8 +1,7 @@
 # 🍦 Ice Cream Game
 
-A fun, interactive ice cream–themed game built with HTML, CSS, and JavaScript. Perfect for kids and casual players who enjoy a simple yet colorful challenge.
+A fun, interactive ice cream–themed game built with HTML, CSS, and JavaScript. 
 
-![Game Preview](screenshot.png) <!-- Add a screenshot named 'screenshot.png' in your repo root -->
 
 ## 🎮 Gameplay
 
